@@ -20,8 +20,8 @@ BROWSEINFO FolderDialog = { 0 };
 
 char Path[MAX_PATH];
 char Buffer[CHUNK_SIZE / sizeof(int)];
-int Keys[] = {WINDOM_CIPHER_KEY, SEEDMOD_CIPHER_KEY, MSVMOD_CIPHER_KEY};
-char* ValidExtensions[] = {".ani", ".fx", ".mpd", ".sdt", ".hod", ".ANI", ".FX", ".MPD", ".SDT", ".HOD"};
+int Keys[] = { WINDOM_CIPHER_KEY, SEEDMOD_CIPHER_KEY, MSVMOD_CIPHER_KEY };
+char* ValidExtensions[] = { ".ani", ".fx", ".mpd", ".sdt", ".hod", ".ANI", ".FX", ".MPD", ".SDT", ".HOD" };
 
 // XORs a file an int at a time till no longer possible
 void CipherFile(int key, char* path)
@@ -30,20 +30,20 @@ void CipherFile(int key, char* path)
 
 	if (fileHandle != NULL)
 	{
-	    int isAtEndOfFile = TRUE;
-	    unsigned int chunkSize;
-	    unsigned int index;
+		int isAtEndOfFile = TRUE;
+		unsigned int chunkSize;
+		unsigned int index;
 
 		while (isAtEndOfFile)
 		{
 			chunkSize = fread(Buffer, sizeof(char), sizeof(Buffer), fileHandle);
 
-            if (feof(fileHandle))
-            {
-                isAtEndOfFile = FALSE;
-            }
+			if (feof(fileHandle))
+			{
+				isAtEndOfFile = FALSE;
+			}
 
-            for (index = 0; (chunkSize - index) > 3; index += 4)
+			for (index = 0; (chunkSize - index) > 3; index += 4)
 			{
 				*(int*)(Buffer + index) ^= key;
 			}
@@ -59,23 +59,23 @@ void CipherFile(int key, char* path)
 // Checks if a string ends with a valid file extension
 int HasValidExtension(char* path)
 {
-    int length = strlen(path);
+	int length = strlen(path);
 
-    if (length > 4)
-    {
-        char* extention = (path + length - 4);
-        unsigned int index;
+	if (length > 4)
+	{
+		char* extention = (path + length - 4);
+		unsigned int index;
 
-        for (index = 0; index < sizeof(ValidExtensions); index++)
-        {
-            if (strcmp(extention, ValidExtensions[index]) == FALSE)
-            {
-                return FALSE;
-            }
-        }
-    }
+		for (index = 0; index < sizeof(ValidExtensions); index++)
+		{
+			if (strcmp(extention, ValidExtensions[index]) == FALSE)
+			{
+				return FALSE;
+			}
+		}
+	}
 
-    return TRUE;
+	return TRUE;
 }
 
 // Callback that handles the messages for the main dialog of the application
@@ -104,8 +104,8 @@ int __stdcall DialogProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 		case IDC_ENCODE_DECODE:
-		    if (GetWindowTextLength(GetDlgItem(hwnd, IDC_TEXT)) > 0)
-            {
+			if (GetWindowTextLength(GetDlgItem(hwnd, IDC_TEXT)) > 0)
+			{
 				struct stat state;
 				GetDlgItemText(hwnd, IDC_TEXT, Path, sizeof(Path));
 				stat(Path, &state);
@@ -124,7 +124,7 @@ int __stdcall DialogProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 
 					while ((entry = readdir(dir)))
 					{
-					    sprintf(str, "%s%s%s", Path, "\\", entry->d_name);
+						sprintf(str, "%s%s%s", Path, "\\", entry->d_name);
 
 						if (IsDlgButtonChecked(hwnd, IDC_CHECK_BOX) == BST_CHECKED)
 						{
@@ -146,7 +146,7 @@ int __stdcall DialogProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 				{
 					MessageBox(hwnd, "Invalid File or Directory", "Error", MB_OK | MB_ICONWARNING | MB_APPLMODAL);
 				}
-            }
+			}
 			break;
 		default:
 			break;
