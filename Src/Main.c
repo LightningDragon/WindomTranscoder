@@ -41,11 +41,18 @@ void CipherFile(int key, char* path)
 			if (feof(fileHandle))
 			{
 				isAtEndOfFile = FALSE;
-			}
 
-			for (index = 0; (chunkSize - index) > 3; index += 4)
+				for (index = 0; index < (chunkSize - 4); index += 4)
+				{
+					*(int*)(Buffer + index) ^= key;
+				}
+			}
+			else
 			{
-				*(int*)(Buffer + index) ^= key;
+				for (index = 0; index < chunkSize; index += 4)
+				{
+					*(int*)(Buffer + index) ^= key;
+				}
 			}
 
 			fseek(fileHandle, -chunkSize, SEEK_CUR);
