@@ -66,7 +66,7 @@ int HasValidExtension(char* path)
 		char* extention = (path + length - 4);
 		unsigned int index;
 
-		for (index = 0; index < sizeof(ValidExtensions); index++)
+		for (index = 0; index < 10; index++)
 		{
 			if (strcmp(extention, ValidExtensions[index]) == FALSE)
 			{
