@@ -6,6 +6,8 @@
 #define MSVMOD_CIPHER_KEY 0x19870430
 #define SEEDMOD205_CIPHER_KEY 0xAC510B91
 #define UNITEDMOD_CIPHER_KEY 0x13322366
+#define RAIDMOD_CIPHER_KEY 0xEF452301
+#define THEEPICOFWAR_CIPHER_KEY 0x33333323
 
 #include <windows.h>
 #include <commdlg.h>
@@ -22,7 +24,7 @@ BROWSEINFO FolderDialog = { 0 };
 
 char Path[MAX_PATH];
 char Buffer[CHUNK_SIZE / sizeof(int)];
-int Keys[] = { WINDOM_CIPHER_KEY, SEEDMOD_CIPHER_KEY, MSVMOD_CIPHER_KEY, SEEDMOD205_CIPHER_KEY, UNITEDMOD_CIPHER_KEY};
+int Keys[] = { WINDOM_CIPHER_KEY, SEEDMOD_CIPHER_KEY, MSVMOD_CIPHER_KEY, SEEDMOD205_CIPHER_KEY, UNITEDMOD_CIPHER_KEY, RAIDMOD_CIPHER_KEY, THEEPICOFWAR_CIPHER_KEY};
 char* ValidExtensions[] = { ".ani", ".fx", ".mpd", ".sdt", ".hod", ".ANI", ".FX", ".MPD", ".SDT", ".HOD" };
 
 // XORs a file an int at a time till no longer possible
@@ -202,6 +204,8 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	SendDlgItemMessage(dialogHadle, IDC_DROP_DOWN, CB_ADDSTRING, 0, (LPARAM)"MSV_MOD Mode");
 	SendDlgItemMessage(dialogHadle, IDC_DROP_DOWN, CB_ADDSTRING, 0, (LPARAM)"SeedMod 2.0.5");
 	SendDlgItemMessage(dialogHadle, IDC_DROP_DOWN, CB_ADDSTRING, 0, (LPARAM)"United Mod");
+	SendDlgItemMessage(dialogHadle, IDC_DROP_DOWN, CB_ADDSTRING, 0, (LPARAM)"Raid Mod");
+	SendDlgItemMessage(dialogHadle, IDC_DROP_DOWN, CB_ADDSTRING, 0, (LPARAM)"The Epic of War");
 	SendDlgItemMessage(dialogHadle, IDC_DROP_DOWN, CB_SETCURSEL, 0, 0);
 	CheckDlgButton(dialogHadle, IDC_CHECK_BOX, BST_CHECKED);
 
